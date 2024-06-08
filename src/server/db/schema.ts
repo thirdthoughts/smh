@@ -1,28 +1,50 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
-
 import {
   pgTableCreator,
   char,
   serial,
   varchar,
+  integer,
 } from "drizzle-orm/pg-core";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
+
 export const createTable = pgTableCreator((name) => `smh_${name}`);
 
-export const posts = createTable(
+/* NOTES, ASSUPMTIONS, QUESTIONS - these should be questioned before production deployment.
+ *
+ * It may be helpful to mark some columns as required/non-nullable
+ * 
+ * Project.Status is a single character for all sample columns. I have not assumed that this
+ * will always be true; some storage savings could be had if it is.
+ * 
+ */
+
+export const Metro = createTable(
   "Metro",
   {
     metroAreaId: serial("MetroAreaId").primaryKey(),
-    metroAreaTitle: varchar("MetroAreaTitle", { length: 256 }).notNull(),
-    metroAreaStateAbr: char("MetroAreaStateAbr", { length: 2 }).notNull(),
-    MetroAreaStateName: varchar("MetroAreaStateName", { length: 256 }).notNull(),
+    metroAreaTitle: varchar("MetroAreaTitle"),
+    metroAreaStateAbr: varchar("MetroAreaStateAbr"), 
+    MetroAreaStateName: varchar("MetroAreaStateName"),
   },
 );
+
+export const Project = createTable(
+  "Project",
+  {
+    projectGroupId: serial("ProjectGroupId").primaryKey(),
+    metroAreaID: integer("MetroAreaID").references(() => Metro.metroAreaId),
+    fullName: varchar("FullName"),
+    status: char("Status", { length: 1}), //NOTE: verify longevity of this choice
+  },
+);
+
+export const Product = createTable(
+  "Product",
+  {
+    projectName: varchar("ProjectName", {length: 256}),
+    productID: varchar("ProductID").primaryKey(),
+    projectGroupID: integer("ProjectGroupID").references(() => Project.projectGroupId),
+    productName: varchar("ProductName")
+  },
+);
+
