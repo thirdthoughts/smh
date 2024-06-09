@@ -9,7 +9,7 @@ import {
 
 export const createTable = pgTableCreator((name) => `smh_${name}`);
 
-/* NOTES, ASSUPMTIONS, QUESTIONS - these should be questioned before production deployment.
+/* NOTES, ASSUPMTIONS, QUESTIONS - these should be rseolved before production deployment.
  *
  * It may be helpful to mark some columns as required/non-nullable
  * 
@@ -31,7 +31,7 @@ export const Metro = createTable(
 export const Project = createTable(
   "Project",
   {
-    projectGroupId: serial("ProjectGroupId").primaryKey(),
+    projectGroupID: serial("ProjectGroupId").primaryKey(),
     metroAreaID: integer("MetroAreaID").references(() => Metro.metroAreaId),
     fullName: varchar("FullName"),
     status: char("Status", { length: 1}), //NOTE: verify longevity of this choice
@@ -43,7 +43,7 @@ export const Product = createTable(
   {
     projectName: varchar("ProjectName", {length: 256}),
     productID: varchar("ProductID"),
-    projectGroupID: integer("ProjectGroupID").references(() => Project.projectGroupId),
+    projectGroupID: integer("ProjectGroupID").references(() => Project.projectGroupID),
     productName: varchar("ProductName")
   },
 );
