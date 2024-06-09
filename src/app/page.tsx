@@ -7,10 +7,12 @@ export default function HomePage() {
   const [results, setResults] = useState([]);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    filteredProducts(searchParam).then((res) => {
-      setResults(() => res);
-      setLoading(false);
-    });
+    filteredProducts(searchParam)
+      .then((res) => {
+        setResults(() => res);
+        setLoading(false);
+      })
+      .catch(() => setResults([]));
   }, [searchParam]);
 
   return (
@@ -26,7 +28,7 @@ export default function HomePage() {
           }}
         ></input>
       </div>
-      { isLoading && <div>Loading...</div>}
+      {isLoading && <div>Loading...</div>}
       {!!results.length && (
         <table className="table-auto">
           <thead>

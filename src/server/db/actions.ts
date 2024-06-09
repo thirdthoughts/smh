@@ -3,7 +3,7 @@ import { db } from "~/server/db";
 import { Metro, Product, Project } from "./schema";
 import { eq, ilike, or } from "drizzle-orm/pg-core/expressions";
 
-export async function filteredProducts(searchParam: string) : Promise<any[]> {
+export async function filteredProducts(searchParam: string) {
   const likeParam = `%${searchParam}%`;
   const result = await db
     .select({
