@@ -42,7 +42,7 @@ export const Product = createTable(
   "Product",
   {
     projectName: varchar("ProjectName", {length: 256}),
-    productID: varchar("ProductID").primaryKey(),
+    productID: varchar("ProductID"),
     projectGroupID: integer("ProjectGroupID").references(() => Project.projectGroupId),
     productName: varchar("ProductName")
   },
