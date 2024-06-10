@@ -1,2 +1,3 @@
 # SMH
-https://smh-sigma.vercel.app/
+https://github.com/thirdthoughts/smh for repo
+https://smh-sigma.vercel.app/ for live instance
