@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { filteredProducts } from "~/server/db/actions";
-import { AsyncReturnType } from "~/types/util_types";
+import { type AsyncReturnType } from "~/types/util_types";
 
 
 export default function HomePage() {
@@ -45,11 +45,11 @@ export default function HomePage() {
           <tbody>
             {results.map((res, index) => (
               <tr key={index}>
-                <td>{res.productName || "NULL"}</td>
-                <td>{res.productID || "NULL"}</td>
-                <td>{res.metroAreaTitle || "NULL"}</td>
-                <td>{res.projectFullName || "NULL"}</td>
-                <td>{res.projectGroupID || "NULL"}</td>
+                <td>{res.productName ?? "NULL"}</td>
+                <td>{res.productID ?? "NULL"}</td>
+                <td>{res.metroAreaTitle ?? "NULL"}</td>
+                <td>{res.projectFullName ?? "NULL"}</td>
+                <td>{res.projectGroupID ?? "NULL"}</td>
               </tr>
             ))}
           </tbody>
