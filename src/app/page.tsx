@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { filteredProducts } from "~/server/db/actions";
+import { AsyncReturnType } from "~/types/util_types";
+
 
 export default function HomePage() {
   const [searchParam, setSearchParam] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([] as AsyncReturnType<typeof filteredProducts>);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     filteredProducts(searchParam)
